@@ -234,7 +234,7 @@ body.travado { overflow: hidden; }
   /* Catálogo: 2 colunas */
   .grade-pecas { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .peca__nome { font-size: 16px; }
-  .peca img { aspect-ratio: 3 / 4; }
+  .peca img { aspect-ratio: 1 / 1; }
 
   /* Botão ver mais */
   .ver-mais { display: flex; width: 100%; margin-top: 20px; justify-content: center; }
