@@ -47,11 +47,20 @@
     });
   }
 
+  var LIMITE_MOBILE = 6;
+
   function desenharPecas() {
     var lista = catAtual === "todas" ? PECAS : PECAS.filter(function (p) { return p.categoria === catAtual; });
     pecasEl.innerHTML = "";
-    lista.forEach(function (p) {
-      var b = el("button", { type: "button", "class": "peca", "aria-label": p.nome + " — ver detalhes" }, [
+
+    var vmAnterior = document.getElementById("ver-mais-btn");
+    if (vmAnterior) vmAnterior.parentNode.removeChild(vmAnterior);
+
+    var isMobile = window.innerWidth <= 600;
+
+    lista.forEach(function (p, i) {
+      var cls = "peca" + (isMobile && i >= LIMITE_MOBILE ? " peca--oculta" : "");
+      var b = el("button", { type: "button", "class": cls, "aria-label": p.nome + " — ver detalhes" }, [
         el("img", { src: p.fotos[0], alt: p.nome, loading: "lazy", width: "400", height: "500" }),
         el("span", { "class": "peca__info" }, [
           el("span", { "class": "rotulo", texto: nomeCat[p.categoria] || "" }),
@@ -62,6 +71,18 @@
       b.addEventListener("click", function () { abrir(p); });
       pecasEl.appendChild(b);
     });
+
+    if (isMobile && lista.length > LIMITE_MOBILE) {
+      var restante = lista.length - LIMITE_MOBILE;
+      var vm = el("button", { type: "button", "class": "btn btn--contorno ver-mais", id: "ver-mais-btn",
+        texto: "Ver mais " + restante + (restante === 1 ? " peça" : " peças") });
+      vm.addEventListener("click", function () {
+        pecasEl.querySelectorAll(".peca--oculta").forEach(function (b) { b.classList.remove("peca--oculta"); });
+        vm.parentNode.removeChild(vm);
+      });
+      pecasEl.parentNode.insertBefore(vm, pecasEl.nextSibling);
+    }
+
     contagemEl.textContent = plural(lista.length);
   }
 
@@ -89,6 +110,28 @@
     a.addEventListener("click", function () { filtrar(c.id); });
     catsEl.appendChild(a);
   });
+
+  // Auto-scroll carrossel de categorias
+  (function () {
+    var timer;
+    function tick() {
+      var maxScroll = catsEl.scrollWidth - catsEl.clientWidth;
+      if (maxScroll <= 0) return;
+      if (catsEl.scrollLeft + 4 >= maxScroll) {
+        catsEl.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        var w = catsEl.children[0] ? catsEl.children[0].offsetWidth + 14 : 184;
+        catsEl.scrollBy({ left: w, behavior: "smooth" });
+      }
+    }
+    function start() { clearInterval(timer); timer = setInterval(tick, 3000); }
+    function stop() { clearInterval(timer); }
+    start();
+    catsEl.addEventListener("mouseenter", stop);
+    catsEl.addEventListener("mouseleave", start);
+    catsEl.addEventListener("touchstart", stop, { passive: true });
+    catsEl.addEventListener("touchend", function () { setTimeout(start, 3500); }, { passive: true });
+  })();
 
   // ---------- Detalhe ----------
   var dlg = document.getElementById("detalhe");
