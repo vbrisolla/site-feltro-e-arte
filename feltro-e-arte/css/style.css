@@ -231,10 +231,32 @@ body.travado { overflow: hidden; }
 }
 
 @media (max-width: 600px) {
-  /* Catálogo: 2 colunas */
-  .grade-pecas { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .peca__nome { font-size: 16px; }
-  .peca img { aspect-ratio: 1 / 1; }
+  /* Catálogo: 2 colunas com cards quadrados */
+  .grade-pecas { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .peca {
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  .peca img {
+    aspect-ratio: 1 / 1;
+    border-radius: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .peca__info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 10px 10px;
+    background: linear-gradient(transparent, rgba(46, 32, 26, .72));
+    border-radius: 0 0 20px 20px;
+  }
+  .peca__info .rotulo { display: none; }
+  .peca__info .peca__preco { display: none; }
+  .peca__info .peca__nome { font-size: 14px; color: #fff; line-height: 1.2; }
 
   /* Botão ver mais */
   .ver-mais { display: flex; width: 100%; margin-top: 20px; justify-content: center; }
