@@ -211,6 +211,9 @@ body.travado { overflow: hidden; }
 /* Peças ocultas (ver mais) */
 .peca--oculta { display: none; }
 
+/* Clones do carrossel: só aparecem no mobile */
+.categoria--clone { display: none; }
+
 /* Celular */
 @media (max-width: 820px) {
   .topo__nav, .so-desktop { display: none; }
@@ -228,6 +231,7 @@ body.travado { overflow: hidden; }
   }
   .grade-categorias::-webkit-scrollbar { display: none; }
   .categoria { flex: 0 0 170px; scroll-snap-align: start; }
+  .categoria--clone { display: flex; }
 }
 
 @media (max-width: 600px) {

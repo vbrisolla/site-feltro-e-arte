@@ -94,9 +94,11 @@
 
   // ---------- Categorias ----------
   var catsEl = document.getElementById("categorias");
+  var catItems = [];
+
   CATS.forEach(function (c) {
     var n = PECAS.filter(function (p) { return p.categoria === c.id; }).length;
-    var a = el("a", { href: "#catalogo", "class": "categoria" }, [
+    var a = el("a", { href: "#catalogo", "class": "categoria", "data-cat": c.id }, [
       el("img", { src: c.foto, alt: c.alt || c.nome, loading: "lazy", width: "400", height: "400" }),
       el("span", { "class": "categoria__rodape" }, [
         el("span", {}, [
@@ -107,25 +109,61 @@
           html: '<svg class="ico"><use href="#i-arrow"/></svg>' })
       ])
     ]);
-    a.addEventListener("click", function () { filtrar(c.id); });
+    catItems.push(a);
     catsEl.appendChild(a);
   });
 
-  // Auto-scroll carrossel de categorias
+  // Delegação de clique (funciona nos clones também)
+  catsEl.addEventListener("click", function (e) {
+    var link = e.target.closest(".categoria");
+    if (link && link.dataset.cat) filtrar(link.dataset.cat);
+  });
+
+  // Carrossel infinito: clona itens no início e no fim
   (function () {
+    if (!catItems.length) return;
+    var n = catItems.length;
+    var GAP = 14;
+
+    catItems.forEach(function (item) {
+      var clone = item.cloneNode(true);
+      clone.classList.add("categoria--clone");
+      catsEl.appendChild(clone);
+    });
+    catItems.slice().reverse().forEach(function (item) {
+      var clone = item.cloneNode(true);
+      clone.classList.add("categoria--clone");
+      catsEl.insertBefore(clone, catsEl.firstChild);
+    });
+
+    function itemW() {
+      return (catsEl.children[0] ? catsEl.children[0].offsetWidth : 170) + GAP;
+    }
+
+    // Posiciona no início dos itens reais (pula os clones do início)
+    requestAnimationFrame(function () {
+      catsEl.scrollLeft = n * itemW();
+    });
+
+    // Teleporte silencioso para manter o loop
+    catsEl.addEventListener("scroll", function () {
+      var cycle = n * itemW();
+      if (catsEl.scrollLeft < cycle) {
+        catsEl.scrollLeft += cycle;
+      } else if (catsEl.scrollLeft >= cycle * 2) {
+        catsEl.scrollLeft -= cycle;
+      }
+    }, { passive: true });
+
+    // Auto-avanço a cada 3s
     var timer;
     function tick() {
-      var maxScroll = catsEl.scrollWidth - catsEl.clientWidth;
-      if (maxScroll <= 0) return;
-      if (catsEl.scrollLeft + 4 >= maxScroll) {
-        catsEl.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        var w = catsEl.children[0] ? catsEl.children[0].offsetWidth + 14 : 184;
-        catsEl.scrollBy({ left: w, behavior: "smooth" });
-      }
+      if (window.innerWidth > 820) return;
+      catsEl.scrollBy({ left: itemW(), behavior: "smooth" });
     }
     function start() { clearInterval(timer); timer = setInterval(tick, 3000); }
     function stop() { clearInterval(timer); }
+
     start();
     catsEl.addEventListener("mouseenter", stop);
     catsEl.addEventListener("mouseleave", start);
