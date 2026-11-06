@@ -5,12 +5,14 @@
   1. Salve a foto em img/pecas/ (de preferência .webp, até ~900 px).
   2. Copie um bloco { ... } abaixo e troque os dados.
      - id: único, sem espaços nem acentos (ex.: "boneca-flor")
-     - categoria: "bonecas" | "bichinhos" | "kits" | "enfeites"
+     - categoria: "natalinos" | "calendarios" | "bonecas" | "bichinhos" | "kits" | "enfeites"
      - fotos: a primeira é a capa do card
   Para remover, apague o bloco inteiro (com a vírgula).
 */
 
 window.CATEGORIAS = [
+  { id: "natalinos",   nome: "Natalinos",        foto: "img/pecas/arvore-presepio.webp",     alt: "Árvore de chenille iluminada com mini presépio dentro" },
+  { id: "calendarios", nome: "Calendários",      foto: "img/pecas/calendario-capivara.webp", alt: "Calendário 2027 com capivara de feltro" },
   { id: "bonecas",   nome: "Bonecas",          foto: "img/pecas/cachinhos-xadrez.webp", alt: "Boneca de pano com cabelo de lã cacheado" },
   { id: "bichinhos", nome: "Bichinhos",        foto: "img/pecas/ursa-filhote.webp",     alt: "Ursa de feltro com filhote" },
   { id: "kits",      nome: "Kits",             foto: "img/pecas/kit-troquinhas.webp",   alt: "Kit com boneca e duas trocas de roupa na bolsa transparente" },
@@ -18,6 +20,62 @@ window.CATEGORIAS = [
 ];
 
 window.PECAS = [
+  { id: "renas", categoria: "natalinos", nome: "Trio de renas de feltro",
+    fotos: ["img/pecas/renas-1.webp", "img/pecas/renas-2.webp"],
+    descricao: "Três renas de feltro com lacinho no pescoço, em pé e sentada." },
+  { id: "guirlanda-poinsetias", categoria: "natalinos", nome: "Guirlanda “Feliz Natal” com bicos-de-papagaio",
+    fotos: ["img/pecas/guirlanda-poinsetias.webp"],
+    descricao: "Guirlanda de juta com flores vermelhas de feltro, folhas, bolinhas douradas e placa “Feliz Natal”." },
+  { id: "guirlanda-papai-noel", categoria: "natalinos", nome: "Painel “Feliz Natal” com Papai Noel",
+    fotos: ["img/pecas/guirlanda-papai-noel.webp"],
+    descricao: "Painel redondo verde com Papai Noel de feltro segurando bolinhas de Natal como balões." },
+  { id: "guirlanda-jesus-nasceu", categoria: "natalinos", nome: "Guirlanda “Jesus Nasceu”",
+    fotos: ["img/pecas/guirlanda-jesus-nasceu.webp"],
+    descricao: "Guirlanda para porta com cruz de feltro, flores brancas, folhagens e laço vermelho." },
+  { id: "faixa-juta-natal", categoria: "natalinos", nome: "Faixa de juta natalina",
+    fotos: ["img/pecas/faixa-juta-natal.webp"],
+    descricao: "Faixa de juta com flores, laços, pinhas e bolinhas de Natal nas duas pontas." },
+  { id: "presepio-cesta", categoria: "natalinos", nome: "Presépio de feltro na cestinha",
+    fotos: ["img/pecas/presepio-cesta.webp"],
+    descricao: "Sagrada Família de feltro em cestinha de vime, com pinheiros ao fundo." },
+  { id: "presepio-jeans", categoria: "natalinos", nome: "Presépio de nozes com manto jeans",
+    fotos: ["img/pecas/presepio-jeans.webp"],
+    descricao: "Mini presépio em pratinho de barro com juta, pinheiro de feltro e estrela dourada." },
+  { id: "presepio-carretel", categoria: "natalinos", nome: "Presépio com árvore dourada",
+    fotos: ["img/pecas/presepio-carretel.webp"],
+    descricao: "Mini presépio em pratinho de barro com juta, musgo, árvore dourada e renda." },
+  { id: "bola-presepio", categoria: "natalinos", nome: "Bola de Natal com presépio",
+    fotos: ["img/pecas/bola-presepio-1.webp", "img/pecas/bola-presepio-2.webp"],
+    descricao: "Bola transparente com mini presépio dentro e laço dourado, para pendurar na árvore." },
+  { id: "arvore-presepio", categoria: "natalinos", nome: "Árvore com presépio iluminado",
+    fotos: ["img/pecas/arvore-presepio.webp"],
+    descricao: "Árvore de chenille com abertura e mini presépio dentro, com luzinhas." },
+  { id: "arvore-chenille-verde", categoria: "natalinos", nome: "Árvore de chenille com estrela",
+    fotos: ["img/pecas/arvore-chenille-verde.webp"],
+    descricao: "Árvore de chenille verde com bolinhas douradas e estrela no topo." },
+  { id: "arvore-chenille-lacos", categoria: "natalinos", nome: "Árvore de chenille com lacinhos",
+    fotos: ["img/pecas/arvore-chenille-lacos.webp"],
+    descricao: "Árvore de chenille em base de madeira, com lacinhos vermelhos e luzinhas." },
+
+  { id: "calendario-capivara", categoria: "calendarios", nome: "Calendário capivara",
+    fotos: ["img/pecas/calendario-capivara.webp", "img/pecas/calendarios-retangulares.webp"],
+    descricao: "Base verde de feltro com capivara, margaridas e calendário 2027." },
+  { id: "calendario-xadrez-flores", categoria: "calendarios", nome: "Calendário xadrez com flores",
+    fotos: ["img/pecas/calendario-xadrez-flores.webp", "img/pecas/calendarios-retangulares.webp"],
+    descricao: "Base xadrez em tons pastel com rosinhas, folhagens e calendário 2027." },
+  { id: "calendario-passarinho", categoria: "calendarios", nome: "Calendário redondo passarinho",
+    fotos: ["img/pecas/calendario-passarinho.webp", "img/pecas/calendarios-redondos.webp"],
+    descricao: "Base rosa redonda com passarinho, flores e calendário 2027." },
+  { id: "calendario-gratidao", categoria: "calendarios", nome: "Calendário redondo “Gratidão”",
+    fotos: ["img/pecas/calendario-gratidao.webp", "img/pecas/calendarios-redondos.webp"],
+    descricao: "Base azul redonda com flores, palavra Gratidão e calendário 2027." },
+  { id: "calendario-casinha-azul", categoria: "calendarios", nome: "Calendário casinha azul",
+    fotos: ["img/pecas/calendario-casinha-azul.webp", "img/pecas/calendarios-casinha.webp"],
+    descricao: "Casinha de feltro com telhado azul, passarinho e calendário 2027." },
+  { id: "calendario-casinha-marrom", categoria: "calendarios", nome: "Calendário casinha marrom",
+    fotos: ["img/pecas/calendario-casinha-marrom.webp", "img/pecas/calendarios-casinha.webp"],
+    descricao: "Casinha de feltro com telhado marrom, coração, flores e calendário 2027." },
+
   { id: "bailarina", categoria: "bonecas", nome: "Boneca bailarina",
     fotos: ["img/pecas/bailarina.webp"],
     descricao: "Boneca de pano com saia de tule rosa, coque e coroinha." },
